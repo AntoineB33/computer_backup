@@ -38,7 +38,6 @@ The `RunBackup.bat` script acts as the gatekeeper.
 1. Open `RunBackup.bat` in a text editor.
 2. Update the `BACKUP_PATH` variable to match your specific USB backup folder.
 3. Update the path to your `.ffs_batch` file in the `:DO_BACKUP` section to point to the file you created in Step 2.
-* *Note: A `config.ini.example` file is included if you prefer to modify the batch script to read external variables instead of hardcoding them.*
 
 ### 4. Configure RealTimeSync
 Now, tell the automator to watch for the USB and trigger the script.
