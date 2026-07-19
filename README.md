@@ -60,3 +60,19 @@ Whenever you turn on your PC, RealTimeSync will silently launch in the backgroun
 
 * If you plugged it in yesterday, the script sees the `last_backup.txt` file is too new and stops immediately. 
 * If it has been 6 days or more, the script triggers your FreeFileSync backup, updates the timestamp, and resets the 6-day clock.
+
+## Linux Mint Setup Guide
+
+*The core concept remains the same across operating systems. Skip Step 2 if you have already created your FreeFileSync `.ffs_batch` job, as those instructions apply universally. The following steps replace the Windows-specific configuration.*
+
+### 1. Set a Permanent Mount Point
+Linux Mint dynamically mounts USB drives under `/media`, but setting a static mount point ensures the script never loses track of the drive.
+1. Open the **Disks** application from your Mint start menu.
+2. Select your USB drive from the left sidebar.
+3. Click the gear icon below the "Volumes" graphic and select **Edit Mount Options**.
+4. Toggle off **User Session Defaults**.
+5. Ensure **Mount at system startup** and **Show in user interface** are checked.
+6. In the **Mount Point** field, type a permanent, simple path (e.g., `/mnt/USB_Backup`). Click **OK** and authenticate.
+
+### 2. Configure the Cooldown Script (Bash)
+Linux relies on Bash scripts (`.sh`) instead of batch files. Update the configuration variables at the top of RunBackup.sh to match your paths.
