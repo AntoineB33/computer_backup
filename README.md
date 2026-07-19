@@ -31,7 +31,7 @@ First, tell FreeFileSync exactly what to copy.
 4. Click the green gear icon to set your sync method (usually **Mirror** or **Update** for backups) and click **OK**.
 5. Go to **File > Save as Batch Job...**
 6. Check the boxes for **Run Minimized** and **Auto-Close**.
-7. Save this file into this project folder (e.g., `Antoine_Sync.ffs_batch`).
+7. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
 
 ### 3. Configure the Cooldown Script
 The `RunBackup.bat` script acts as the gatekeeper. 
@@ -75,7 +75,7 @@ First, tell FreeFileSync exactly what to copy.
 4. Click the green gear icon to set your sync method (usually **Mirror** or **Update** for backups) and click **OK**.
 5. Go to **File > Save as Batch Job...**
 6. Check the boxes for **Run Minimized** and **Auto-Close**.
-7. Save this file into this project folder (e.g., `Antoine_Sync.ffs_batch`).
+7. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
 
 ### 3. Configure the Cooldown Script (Bash)
 Linux relies on Bash scripts (`.sh`) instead of batch files.
@@ -97,7 +97,7 @@ For this to be truly automatic, RealTimeSync needs to run silently whenever you 
 2. Click the **+** (Add) button at the bottom and select **Custom command**.
 3. In the **Name** field, type `USB Backup Watcher`.
 4. In the **Command** field, you must provide the full path to both the RealTimeSync executable and your configuration file. 
-   * **If downloaded from the website:** `/path/to/extracted/FreeFileSync/RealTimeSync /home/yourname/Documents/USB_Watch.ffs_real`
+   * **If downloaded from the website:** `/opt/FreeFileSync/RealTimeSync /home/yourname/Documents/USB_Watch.ffs_real`
    * **If installed via Flatpak:** `flatpak run --command=RealTimeSync org.freefilesync.FreeFileSync /home/yourname/Documents/USB_Watch.ffs_real`
 5. Add a brief description if you like, then click **Add** and ensure the toggle switch is turned on.
 
