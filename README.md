@@ -6,13 +6,13 @@ This project pairs RealTimeSync with a simple Windows batch script to act as a g
 
 ### Prerequisites
 
-* **OS:** Windows
+* **OS:** Windows or Linux Mint
 * **Software:** [FreeFileSync](https://freefilesync.org/) (includes RealTimeSync)
 * **Hardware:** An external USB drive
 
 ---
 
-### Setup Guide
+## Windows Setup Guide
 
 Because the steps rely on each other, it is important to follow them in order.
 
@@ -54,16 +54,9 @@ For this to be truly automatic, RealTimeSync needs to run in your system tray wh
 
 ---
 
-### How It Works Moving Forward
-
-Whenever you turn on your PC, RealTimeSync will silently launch in the background. When you physically plug in the `Z:` drive, RealTimeSync instantly detects it and runs the `.bat` file. 
-
-* If you plugged it in yesterday, the script sees the `last_backup.txt` file is too new and stops immediately. 
-* If it has been 6 days or more, the script triggers your FreeFileSync backup, updates the timestamp, and resets the 6-day clock.
-
 ## Linux Mint Setup Guide
 
-*The core concept remains the same across operating systems. Skip Step 2 if you have already created your FreeFileSync `.ffs_batch` job, as those instructions apply universally. The following steps replace the Windows-specific configuration.*
+Because the steps rely on each other, it is important to follow them in order.
 
 ### 1. Set a Permanent Mount Point
 Linux Mint dynamically mounts USB drives under `/media`, but setting a static mount point ensures the script never loses track of the drive.
@@ -74,5 +67,45 @@ Linux Mint dynamically mounts USB drives under `/media`, but setting a static mo
 5. Ensure **Mount at system startup** and **Show in user interface** are checked.
 6. In the **Mount Point** field, type a permanent, simple path (e.g., `/mnt/USB_Backup`). Click **OK** and authenticate.
 
-### 2. Configure the Cooldown Script (Bash)
-Linux relies on Bash scripts (`.sh`) instead of batch files. Update the configuration variables at the top of RunBackup.sh to match your paths.
+### 2. Create the FreeFileSync Batch Job
+First, tell FreeFileSync exactly what to copy.
+1. Open **FreeFileSync**.
+2. Set the left folder to your source (e.g., `/home/yourname/`).
+3. Set the right folder to your destination (e.g., `/mnt/USB_Backup/yourname/home`).
+4. Click the green gear icon to set your sync method (usually **Mirror** or **Update** for backups) and click **OK**.
+5. Go to **File > Save as Batch Job...**
+6. Check the boxes for **Run Minimized** and **Auto-Close**.
+7. Save this file into this project folder (e.g., `Antoine_Sync.ffs_batch`).
+
+### 3. Configure the Cooldown Script (Bash)
+Linux relies on Bash scripts (`.sh`) instead of batch files.
+1. Open `RunBackup.sh` in a text editor (like Xed or Nano).
+2. Update the `BACKUP_PATH` variable at the top to match your specific USB backup folder.
+3. Update the path to point to the `.ffs_batch` file you created in Step 2.
+4. Open a terminal, navigate to the folder containing your script, and make it executable by running: `chmod +x RunBackup.sh`
+
+### 4. Configure RealTimeSync
+Now, tell the automator to watch for the USB and trigger the script.
+1. Open **RealTimeSync**.
+2. Under **Folders to watch**, type your mount point (e.g., `/mnt/USB_Backup/`).
+3. Clear whatever text is in the **Command line** box, and replace it with the exact path to your script (e.g., `"/home/yourname/path/to/repo/RunBackup.sh"`).
+4. Go to **File > Save As** and save this configuration in your Documents folder as `USB_Watch.ffs_real`.
+
+### 5. Automate in the Background
+For this to be truly automatic, RealTimeSync needs to run silently whenever you log into Linux Mint.
+1. Open **Startup Applications** from the Mint start menu.
+2. Click the **+** (Add) button at the bottom and select **Custom command**.
+3. In the **Name** field, type `USB Backup Watcher`.
+4. In the **Command** field, you must provide the full path to both the RealTimeSync executable and your configuration file. 
+   * **If downloaded from the website:** `/path/to/extracted/FreeFileSync/RealTimeSync /home/yourname/Documents/USB_Watch.ffs_real`
+   * **If installed via Flatpak:** `flatpak run --command=RealTimeSync org.freefilesync.FreeFileSync /home/yourname/Documents/USB_Watch.ffs_real`
+5. Add a brief description if you like, then click **Add** and ensure the toggle switch is turned on.
+
+---
+
+### How It Works Moving Forward
+
+Whenever you turn on your PC, RealTimeSync will silently launch in the background. When you physically plug in the drive, RealTimeSync instantly detects it and runs the script. 
+
+* If you plugged it in yesterday, the script sees the `last_backup.txt` file is too new and stops immediately. 
+* If it has been more than your set interval, the script triggers your FreeFileSync backup, updates the timestamp, and resets the clock.
