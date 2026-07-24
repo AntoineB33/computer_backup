@@ -75,7 +75,8 @@ First, tell FreeFileSync exactly what to copy.
 4. Click the green gear icon to set your sync method (usually **Mirror** or **Update** for backups) and click **OK**.
 5. Go to **File > Save as Batch Job...**
 6. Check the boxes for **Run Minimized** and **Auto-Close**.
-7. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
+7. Change the setting from Show error dialog to Ignore
+8. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
 
 ### 3. Configure the Cooldown Script (Bash)
 Linux relies on Bash scripts (`.sh`) instead of batch files.
@@ -88,7 +89,7 @@ Linux relies on Bash scripts (`.sh`) instead of batch files.
 Now, tell the automator to watch for the USB and trigger the script.
 1. Open **RealTimeSync**.
 2. Under **Folders to watch**, type your mount point (e.g., `/mnt/USB_Backup/`).
-3. Clear whatever text is in the **Command line** box, and replace it with the exact path to your script (e.g., `"/home/yourname/path/to/repo/RunBackup.sh"`).
+3. Clear whatever text is in the **Command line** box, and replace it with `cmd /c start /wait "" ` followed by the exact path to your script (e.g., `"/home/yourname/path/to/repo/RunBackup.sh"`).
 4. Go to **File > Save As** and save this configuration in your Documents folder as `USB_Watch.ffs_real`.
 
 ### 5. Automate in the Background
