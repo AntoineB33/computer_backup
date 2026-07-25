@@ -29,9 +29,10 @@ First, tell FreeFileSync exactly what to copy.
 2. Set the left folder to your source (e.g., `C:\Users\YourName`).
 3. Set the right folder to your destination (e.g., `Z:\backups\YourName\C`).
 4. Click the green gear icon to set your sync method (usually **Mirror** or **Update** for backups) and click **OK**.
-5. Go to **File > Save as Batch Job...**
+5. Go to **File > Save as Batch Job...**.
 6. Check the boxes for **Run Minimized** and **Auto-Close**.
-7. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
+7. Change the setting from Show error dialog to Ignore.
+8. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
 
 ### 3. Configure the Cooldown Script
 The `RunBackup.bat` script acts as the gatekeeper. 
@@ -43,7 +44,7 @@ The `RunBackup.bat` script acts as the gatekeeper.
 Now, tell the automator to watch for the USB and trigger the script.
 1. Open **RealTimeSync**.
 2. Under **Folders to watch**, type `Z:\`.
-3. Clear whatever text is in the **Command line** box, and replace it with the exact path to your script (e.g., `"C:\path\to\your\repo\RunBackup.bat"`).
+3. Clear whatever text is in the **Command line** box, and replace it with `cmd /c start /wait "" ` followed by the exact path to your script (e.g., `"C:\path\to\your\repo\RunBackup.bat"`).
 4. Go to **File > Save As** and save this configuration in your Documents folder as `USB_Watch.ffs_real`.
 
 ### 5. Automate in the Background
@@ -73,9 +74,9 @@ First, tell FreeFileSync exactly what to copy.
 2. Set the left folder to your source (e.g., `/home/yourname/`).
 3. Set the right folder to your destination (e.g., `/mnt/USB_Backup/yourname/home`).
 4. Click the green gear icon to set your sync method (usually **Mirror** or **Update** for backups) and click **OK**.
-5. Go to **File > Save as Batch Job...**
+5. Go to **File > Save as Batch Job...**.
 6. Check the boxes for **Run Minimized** and **Auto-Close**.
-7. Change the setting from Show error dialog to Ignore
+7. Change the setting from Show error dialog to Ignore.
 8. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
 
 ### 3. Configure the Cooldown Script (Bash)

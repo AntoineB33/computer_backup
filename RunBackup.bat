@@ -38,7 +38,7 @@ echo.
 :: Capture FreeFileSync exit code (0 = Success, 1 = Warning, 2 = Error, 3 = Aborted)
 set FFS_ERROR=%errorlevel%
 
-if %FFS_ERROR% neq 0 goto HANDLE_ERROR
+if %FFS_ERROR% geq 3 goto HANDLE_ERROR
 goto HANDLE_SUCCESS
 
 
