@@ -8,6 +8,7 @@ This project pairs RealTimeSync with a simple Windows batch script to act as a g
 
 * **OS:** Windows or Linux Mint
 * **Software:** [FreeFileSync](https://freefilesync.org/) (includes RealTimeSync)
+* **Software (Windows Only):** [RemoveDrive](https://www.uwe-sieber.de/drivetools_e.html) (A command-line tool for safely ejecting drives)
 * **Hardware:** An external USB drive
 
 ---
@@ -34,20 +35,27 @@ First, tell FreeFileSync exactly what to copy.
 7. Change the setting from Show error dialog to Ignore.
 8. Save this file into this project folder (e.g., `YourName_Sync.ffs_batch`).
 
-### 3. Configure the Cooldown Script
+### 3. Install RemoveDrive (For Safe Ejection)
+The Windows script includes a graphical popup to safely eject your USB drive when the backup finishes. For this to work, it needs a small utility.
+1. Download **RemoveDrive** from [Uwe Sieber's website](https://www.uwe-sieber.de/drivetools_e.html) (look for the standard zip file).
+2. Extract the downloaded ZIP folder.
+3. Find the file named `RemoveDrive.exe` (ensure you grab the 64-bit version if applicable) and copy it.
+4. Paste it into your FreeFileSync installation directory: `C:\Program Files\FreeFileSync\`. *(Note: You will need Administrator permissions to paste into this folder).*
+
+### 4. Configure the Cooldown Script
 The `RunBackup.bat` script acts as the gatekeeper. 
 1. Open `RunBackup.bat` in a text editor.
 2. Update the `BACKUP_PATH` variable to match your specific USB backup folder.
 3. Update the path to your `.ffs_batch` file in the `:DO_BACKUP` section to point to the file you created in Step 2.
 
-### 4. Configure RealTimeSync
+### 5. Configure RealTimeSync
 Now, tell the automator to watch for the USB and trigger the script.
 1. Open **RealTimeSync**.
 2. Under **Folders to watch**, type `Z:\`.
 3. Clear whatever text is in the **Command line** box, and replace it with `cmd /c start /wait "" ` followed by the exact path to your script (e.g., `"C:\path\to\your\repo\RunBackup.bat"`).
 4. Go to **File > Save As** and save this configuration in your Documents folder as `USB_Watch.ffs_real`.
 
-### 5. Automate in the Background
+### 6. Automate in the Background
 For this to be truly automatic, RealTimeSync needs to run in your system tray whenever your computer is on.
 1. Press `Win + R` on your keyboard to open the Run box.
 2. Type `shell:startup` and press **Enter**. This opens the Windows Startup folder.
