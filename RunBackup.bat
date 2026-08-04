@@ -50,9 +50,22 @@ echo.
 :: Send a visual popup notification so the user realizes it failed
 powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('Backup stopped with an error (Code %FFS_ERROR%). Check the terminal window.', 'Backup Error', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)}"
 
-:: Wait for the user to press Enter before closing the terminal
-set /p dummy="Press Enter to close this window..."
-exit /b %FFS_ERROR%
+:: Ask the user if they want to retry the backup
+choice /C YN /M "Would you like to retry the backup?"
+
+:: errorlevel 2 corresponds to 'N'
+if errorlevel 2 (
+    echo Exiting script...
+    exit /b %FFS_ERROR%
+)
+
+:: errorlevel 1 corresponds to 'Y'
+if errorlevel 1 (
+    echo.
+    echo Retrying backup...
+    echo.
+    goto DO_BACKUP
+)
 
 
 :HANDLE_SUCCESS

@@ -119,3 +119,9 @@ Whenever you turn on your PC, RealTimeSync will silently launch in the backgroun
 
 * If you plugged it in yesterday, the script sees the `last_backup.txt` file is too new and stops immediately. 
 * If it has been more than your set interval, the script triggers your FreeFileSync backup, updates the timestamp, and resets the clock.
+
+> **⚠️ Important Note on Checking Progress**
+> Because the FreeFileSync job is configured to run minimized, it will appear as an icon in your system tray (hidden apps) while backing up. 
+> * If you click this icon, the window will open so you can view the progress. 
+> * **Do not click the "X" (Close) button** when you are done viewing! Closing the window will instantly abort the backup process and throw an error. 
+> * Instead, click the **Minimize** button (the underscore `_`) to send it back to the background so it can finish the job.
